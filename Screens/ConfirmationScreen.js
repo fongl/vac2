@@ -5,7 +5,7 @@ import {Icon} from 'native-base';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height 
 
-class LoginScreen extends Component {
+class ConfirmationScreen extends Component {
     static navigationOptions = {
         header:null
     }
@@ -111,8 +111,6 @@ class LoginScreen extends Component {
             outputRange:[0,1]
         })
 
-        const { navigate } = this.props.navigation;
-
         return(
             <View style={{flex:1}}>
 
@@ -138,7 +136,7 @@ class LoginScreen extends Component {
                         alignItems:'center',justifyContent:'center',borderRadius:30
                     }}
                 >
-                    <Icon name='md-arrow-forward' style={{color:'white'}} onPress = {()=>navigate('ConfirmationScreen')}
+                    <Icon name='md-arrow-forward' style={{color:'white'}} onPress = {()=>navigate(ConfirmationScreen)}
                     />
                 </Animated.View>
 
@@ -163,7 +161,7 @@ class LoginScreen extends Component {
                             style={{opacity:headerTextOpacity,alignItems:'flex-start',paddingHorizontal:25,marginTop:marginTop}}
                             >
                                 <Text style={{fontSize:24}}>
-                                    Get started with Vacay Away
+                                    Hando Lando
                                 </Text>
                             </Animated.View>
 
@@ -179,7 +177,7 @@ class LoginScreen extends Component {
                                         bottom:titleTextBottom,left:titleTextLeft,opacity:titleTextOpacity
                                     }}
                                     >
-                                    Enter your mobile number
+                                    Banjo Kanjo
                                     </Animated.Text>
                                     <Image source={require('../assets/flag.png')}
                                     style={{height:24,width:24,resizeMode:'contain'}}
@@ -210,7 +208,7 @@ class LoginScreen extends Component {
                             <Text 
                             style={{color:'#5a7fdf',fontWeight:'bold',}}
                             >
-                             Or connect with a social account
+                             Hello Moto
                             </Text>    
                         </View>
                     </Animatable.View>
@@ -220,7 +218,7 @@ class LoginScreen extends Component {
     }
 }
 
-export default LoginScreen;
+export default ConfirmationScreen;
 
 const styles = StyleSheet.create({
     container: {
