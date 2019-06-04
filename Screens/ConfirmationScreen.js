@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity, Image, Animated, Dimensions, Keyboard} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {Icon} from 'native-base';
+import CodeInput from 'react-native-confirmation-code-input';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height 
 
@@ -62,7 +63,7 @@ class ConfirmationScreen extends Component {
     }
 
     increaseHeightOfLogin = () => {
-        this.setState({placeholderText:'9876543210'})
+        this.setState({placeholderText:''})
         Animated.timing(this.loginHeight,{
             toValue:SCREEN_HEIGHT,
             duratio:500
@@ -111,6 +112,8 @@ class ConfirmationScreen extends Component {
             outputRange:[0,1]
         })
 
+        const { navigate } = this.props.navigation;
+
         return(
             <View style={{flex:1}}>
 
@@ -118,7 +121,7 @@ class ConfirmationScreen extends Component {
                     style={{
                         position:'absolute',
                         height:60,width:60,top:60,left:25,zIndex:100,
-                        opacity:headerBackArrowOpacity
+                        opacity:1
                     }}
                 >
                     <TouchableOpacity
@@ -127,93 +130,63 @@ class ConfirmationScreen extends Component {
                         <Icon name="md-arrow-back" style={{color:'black'}}/>
                     </TouchableOpacity>
                 </Animated.View>
-
+                
                 <Animated.View
                     style={{
                         position:'absolute',
-                        height:60,width:60,right:10,bottom:this.keyboardHeight,
-                        opacity:this.forwardArrowOpacity,zIndex:100,backgroundColor:'#54575e',
+                        height:60,width:60,right:10,bottom:20,
+                        opacity:1,zIndex:100,backgroundColor:'#54575e',
                         alignItems:'center',justifyContent:'center',borderRadius:30
                     }}
                 >
-                    <Icon name='md-arrow-forward' style={{color:'white'}} onPress = {()=>navigate(ConfirmationScreen)}
+                <TouchableOpacity>
+                    <Icon name='md-arrow-forward' style={{color:'white'}} onPress = {()=>navigate('MapScreen')}
                     />
+                </TouchableOpacity>
                 </Animated.View>
-
-                <ImageBackground
-                    source={require('../assets/vacawaybackground.jpg')}
-                    style={{flex:1}}
-                >
-                    <View 
-                    style={{flex:1,justifyContent:'center',alignItems:'center'}}
+                    <Animated.View
+                        style={{marginTop:marginTop,paddingHorizontal:25,flexDirection:'row'}}
                     >
-                        <View>
-                        </View>
-                    </View>
+                        <Animated.Text
+                            style={{
+                                fontSize:18,color:'grey',position:'absolute',
+                                top:100,left:25,opacity:1
+                                }}
+                            >
+                        Enter the 4 digit code sent to your phone
+                        </Animated.Text>
+                                    
+                    </Animated.View>     
+                
+
+                    
 
                 {/* {Bottom Half} */}
 
-                    <Animatable.View animation='slideInUp' iteration={1}>
-                        <Animated.View
-                        style={{height:this.loginHeight,backgroundColor:'white'}}
-                        >
-                            <Animated.View
-                            style={{opacity:headerTextOpacity,alignItems:'flex-start',paddingHorizontal:25,marginTop:marginTop}}
-                            >
-                                <Text style={{fontSize:24}}>
-                                    Hando Lando
-                                </Text>
-                            </Animated.View>
+                <View>
+                    <CodeInput
+                    ref="codeInputRef2"
+                    codeLength={4}
+                    compareWithCode='1234'
+                    activeColor='rgba(0, 0, 0, 1)'
+                    inactiveColor='rgba(0, 0, 0, 0.3)'
+                    autoFocus={false}
+                    ignoreCase={true}
+                    inputPosition='center'
+                    size={50}
+                    onFulfill={()=>navigate('TestScreen')}
+                    containerStyle={{ marginTop: '38%' }}
+                    codeInputStyle={{ borderWidth: 2.5 }}
+                    keyboardType='numeric'
+                    />
+                    <View
+                    style={{position:'absolute',top:'200%' }}
+                    >
+                    </View>
+                </View>
 
-                            <TouchableOpacity
-                                onPress= {()=>this.increaseHeightOfLogin()}
-                             >
-                                <Animated.View
-                                style={{marginTop:marginTop,paddingHorizontal:25,flexDirection:'row'}}
-                                >
-                                    <Animated.Text
-                                    style={{
-                                        fontSize:24,color:'grey',position:'absolute',
-                                        bottom:titleTextBottom,left:titleTextLeft,opacity:titleTextOpacity
-                                    }}
-                                    >
-                                    Banjo Kanjo
-                                    </Animated.Text>
-                                    <Image source={require('../assets/flag.png')}
-                                    style={{height:24,width:24,resizeMode:'contain'}}
-                                    />
-                                    <Animated.View
-                                    pointerEvents='none'
-                                    style={{flexDirection:'row',flex:1,borderBottomWidth:this.borderBottomWidth}}
-                                    >
-                                        <Text style={{fontSize:20,paddingHorizontal:10}}>+1</Text> 
-                                        <TextInput
-                                        ref='textInputMobile'
-                                        style={{flex:1,fontSize:20}}
-                                        placeholder = {this.state.placeholderText}
-                                        underlineColorAndroid='transparent'
-                                        keyboardType='numeric'
-                                        />
-                                    </Animated.View>
-                                </Animated.View>     
-                            </TouchableOpacity>
-                        </Animated.View>
-
-                        <View
-                        style={{
-                            height:70,backgroundColor:'white',alignItems:'flex-start',
-                            justifyContent:'center',borderTopColor:'#e8e8ec',borderTopWidth:1,paddingHorizontal:25
-                        }}
-                        >
-                            <Text 
-                            style={{color:'#5a7fdf',fontWeight:'bold',}}
-                            >
-                             Hello Moto
-                            </Text>    
-                        </View>
-                    </Animatable.View>
-                </ImageBackground>
             </View>
+            
         );
     }
 }

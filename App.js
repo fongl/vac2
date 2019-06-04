@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import LoginScreen from "./Screens/LoginScreen";
 import ConfirmationScreen from "./Screens/ConfirmationScreen";
+import MapScreen from "./Screens/MapScreen";
 // import ConfirmationScreen from "./Screens/ConfirmationScreen";
 // import { MapView, Permissions, Location } from "expo";
 
@@ -17,7 +18,8 @@ export default class App extends React.Component {
 
 const AppStackNavigator = createStackNavigator({
   LoginScreen: {screen:LoginScreen},
-  ConfirmationScreen: {screen:ConfirmationScreen}
+  ConfirmationScreen: {screen:ConfirmationScreen},
+  MapScreen:{screen:MapScreen}
   
 })
 
